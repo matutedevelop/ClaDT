@@ -30,8 +30,8 @@ jobs:
         run: |
           sqlmesh run prod 
       - name: Notify Discord on failure
-      if: failure()
-      run: |
-        curl -H "Content-Type: application/json" \
-          -d '{"content": " SQLMesh scheduled run failed on `${{ github.repository }}` — revisa el log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
-          ${{ secrets.DISCORD_WEBHOOK_URL }}
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+            -d '{"content": " SQLMesh scheduled run failed on `${{ github.repository }}` — revisa el log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
