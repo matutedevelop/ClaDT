@@ -1,0 +1,101 @@
+2026-07-09 12:02:07,922 - MainThread - sqlmesh.core.plan.evaluator - INFO - Evaluating plan stage CreateSnapshotRecordsStage (evaluator.py:123)
+2026-07-09 12:02:08,254 - MainThread - sqlmesh.core.plan.evaluator - INFO - Evaluating plan stage PhysicalLayerSchemaCreationStage (evaluator.py:123)
+2026-07-09 12:02:08,255 - ThreadPoolExecutor-1_0 - sqlmesh.core.snapshot.evaluator - INFO - Creating schema 'neondb.sqlmesh__silver' (evaluator.py:1468)
+2026-07-09 12:02:08,737 - ThreadPoolExecutor-1_0 - sqlmesh.core.engine_adapter.base - INFO - Executing SQL: /* SQLMESH_PLAN: 33a025606b42449fb4e25506bfde8378 */ CREATE SCHEMA IF NOT EXISTS "sqlmesh__silver" (base.py:2629)
+2026-07-09 12:02:08,927 - MainThread - sqlmesh.core.plan.evaluator - INFO - Evaluating plan stage BackfillStage (evaluator.py:123)
+2026-07-09 12:02:08,931 - ThreadPoolExecutor-2_0 - sqlmesh.core.snapshot.evaluator - INFO - Listing data objects in schema neondb.sqlmesh__silver (evaluator.py:1635)
+2026-07-09 12:02:09,338 - ThreadPoolExecutor-2_0 - sqlmesh.core.engine_adapter.base - INFO - Executing SQL: /* SQLMESH_PLAN: 33a025606b42449fb4e25506bfde8378 */ SELECT current_catalog (base.py:2629)
+2026-07-09 12:02:09,780 - ThreadPoolExecutor-3_0 - sqlmesh.core.snapshot.evaluator - INFO - Evaluating snapshot SnapshotId<"neondb"."silver"."dim_product": 4087101025> (evaluator.py:730)
+2026-07-09 12:02:10,240 - ThreadPoolExecutor-3_0 - sqlmesh.core.snapshot.evaluator - INFO - Creating table 'neondb.sqlmesh__silver.silver__dim_product__2691256685' (evaluator.py:2095)
+2026-07-09 12:02:10,242 - ThreadPoolExecutor-3_0 - sqlmesh.core.engine_adapter.base - INFO - Executing SQL: /* SQLMESH_PLAN: 33a025606b42449fb4e25506bfde8378 */ CREATE TABLE IF NOT EXISTS "sqlmesh__silver"."silver__dim_product__2691256685" ("pt_id" INT, "name" TEXT, "list_price" DOUBLE PRECISION, "pp_id" INT, "create_date" INT, "new_name" TEXT, "thickness" DOUBLE PRECISION, "length" DOUBLE PRECISION, "width" DOUBLE PRECISION, "is_edged" BOOLEAN, "is_sandblasted" BOOLEAN, "is_drilled" BOOLEAN, "is_bezeled" BOOLEAN) (base.py:2629)
+2026-07-09 12:02:10,378 - ThreadPoolExecutor-3_0 - sqlmesh.core.snapshot.evaluator - INFO - Inserting data for snapshot SnapshotId<"neondb"."silver"."dim_product": 4087101025> (evaluator.py:971)
+2026-07-09 12:02:10,753 - MainThread - sqlmesh.core.scheduler - INFO - Execution failed for node EvaluateNode(snapshot_name='"neondb"."silver"."dim_product"', interval=(1781740800000, 1783209600000), batch_index=0) (scheduler.py:618)
+Traceback (most recent call last):
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/model/definition.py", line 1953, in render
+    df_or_iter = env[self.entrypoint](
+        context=context.with_variables(variables, blueprint_variables=blueprint_variables),
+        **kwargs,
+    )
+  File "<string>", line 12, in execute
+AttributeError: 'ExecutionContext' object has no attribute 'model'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/utils/concurrency.py", line 69, in _process_node
+    self.fn(node)
+    ~~~~~~~^^^^^^
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/scheduler.py", line 554, in run_node
+    audit_results = self.evaluate(
+        snapshot=snapshot,
+    ...<9 lines>...
+        selected_models=selected_models,
+    )
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/scheduler.py", line 229, in evaluate
+    wap_id = self.snapshot_evaluator.evaluate(
+        snapshot,
+    ...<9 lines>...
+        **kwargs,
+    )
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/snapshot/evaluator.py", line 186, in evaluate
+    result = self._evaluate_snapshot(
+        start=start,
+    ...<9 lines>...
+        **kwargs,
+    )
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/snapshot/evaluator.py", line 840, in _evaluate_snapshot
+    self._render_and_insert_snapshot(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        start=start,
+        ^^^^^^^^^^^^
+    ...<10 lines>...
+        batch_index=batch_index,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/snapshot/evaluator.py", line 1059, in _render_and_insert_snapshot
+    for index, query_or_df in enumerate(queries_or_dfs):
+                              ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/model/definition.py", line 1964, in render
+    raise PythonModelEvalError(format_evaluated_code_exception(e, self.python_env))
+sqlmesh.utils.errors.PythonModelEvalError:   File 'models/silver/product_template_model.py' (or imported file), line 12, in execute
+    def execute(context: ExecutionContext, start: datetime, end: datetime,
+        execution_time: datetime, **kwargs: t.Any):
+        sql_query = """
+            SELECT pt.id AS pt_id, pt.name ->> 'es_MX' AS name, pt.list_price, pp.id AS pp_id, pt.create_date, to_char(pt.create_date, 'YYMMDD')
+            FROM bronze.raw__product_template pt
+            JOIN bronze.raw__product_product pp ON pt.id = pp.product_tmpl_id
+            WHERE pt.create_uid = 2;
+        """
+        df = context.fetchdf(sql_query)
+        parsed_names_df = parse_product_names(df['name'])
+        processed_df = pd.concat([df, parsed_names_df], axis=1)
+        target_columns = list(context.model.columns.keys())
+      AttributeError: 'ExecutionContext' object has no attribute 'model'
+
+
+The above exception was the direct cause of the following exception:
+
+sqlmesh.utils.concurrency.NodeExecutionFailedError: Execution failed for node EvaluateNode(snapshot_name='"neondb"."silver"."dim_product"', interval=(1781740800000, 1783209600000), batch_index=0)
+2026-07-09 12:02:10,760 - MainThread - sqlmesh.core.context - INFO - Plan application failed. (context.py:1816)
+Traceback (most recent call last):
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/context.py", line 1808, in apply
+    self._apply(plan, circuit_breaker)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/context.py", line 2602, in _apply
+    self._scheduler.create_plan_evaluator(self).evaluate(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        plan.to_evaluatable(), circuit_breaker=circuit_breaker
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/plan/evaluator.py", line 105, in evaluate
+    self._evaluate_stages(plan_stages, plan)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/plan/evaluator.py", line 125, in _evaluate_stages
+    handler(stage, plan)
+    ~~~~~~~^^^^^^^^^^^^^
+  File "/home/arroio/Dev/WRK/clarovent/DE/.devenv/state/venv/lib/python3.13/site-packages/sqlmesh/core/plan/evaluator.py", line 264, in visit_backfill_stage
+    raise PlanError("Plan application failed.")
+sqlmesh.utils.errors.PlanError: Plan application failed.
+2026-07-09 12:02:10,761 - MainThread - root - INFO - Shutting down the event dispatcher (dispatcher.py:159)

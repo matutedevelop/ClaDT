@@ -1,0 +1,2 @@
+2026-07-10 21:08:13,850 - MainThread - sqlmesh.core.engine_adapter.base - INFO - Connection to the database was lost. Reconnecting... (base.py:2544)
+2026-07-10 21:08:14,220 - MainThread - root - INFO - Shutting down the event dispatcher (dispatcher.py:159)

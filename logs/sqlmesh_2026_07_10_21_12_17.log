@@ -1,0 +1,7 @@
+2026-07-10 21:12:20,977 - MainThread - sqlmesh.core.state_sync.common - INFO - Cleaned up 0 expired snapshots (janitor.py:194)
+2026-07-10 21:12:21,167 - MainThread - sqlmesh.core.state_sync.db.interval - INFO - Compacting 4 intervals for 4 snapshots (interval.py:130)
+2026-07-10 21:12:21,167 - MainThread - sqlmesh.core.state_sync.db.interval - INFO - Pushing intervals for snapshot SnapshotId<"neondb"."silver"."dim_customer": 2726786747> (interval.py:215)
+2026-07-10 21:12:21,167 - MainThread - sqlmesh.core.state_sync.db.interval - INFO - Pushing intervals for snapshot SnapshotId<"neondb"."silver"."dim_paayment_term": 3927595028> (interval.py:215)
+2026-07-10 21:12:21,167 - MainThread - sqlmesh.core.state_sync.db.interval - INFO - Pushing intervals for snapshot SnapshotId<"neondb"."silver"."dim_product": 1321830629> (interval.py:215)
+2026-07-10 21:12:21,167 - MainThread - sqlmesh.core.state_sync.db.interval - INFO - Pushing intervals for snapshot SnapshotId<"neondb"."silver"."fact_sale_order_line": 3024126539> (interval.py:215)
+2026-07-10 21:12:23,319 - MainThread - root - INFO - Shutting down the event dispatcher (dispatcher.py:159)
