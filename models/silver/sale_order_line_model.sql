@@ -21,5 +21,5 @@ FROM bronze.raw__sale_order_line sol
 JOIN bronze.raw__sale_order so ON sol.order_id = so.id
 JOIN bronze.raw__product_product pp ON sol.product_id = pp.id
 JOIN bronze.raw__product_template pt ON pp.product_tmpl_id = pt.id
-JOIN bronze.raw__rest_partner rp ON sol.order_partner_id = rp.id
+JOIN bronze.raw__res_partner rp ON sol.order_partner_id = rp.id
 WHERE sol.company_id = 5
