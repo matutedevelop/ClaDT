@@ -13,7 +13,7 @@ MODEL(
 );
 
 
-SELECT sol.id AS id, pt.product_id, rp.id AS customer_id  ,so.payment_term_id, sol.state, ,sol.invoice_status, sol.product_uom_qty,
+SELECT sol.id AS id, pt.id AS product_id, rp.id AS customer_id  ,so.payment_term_id, sol.state, ,sol.invoice_status, sol.product_uom_qty,
        (sol.qty_invoiced + sol.qty_delivered + sol.qty_to_invoice) AS qty, so.name,
         sol.price_unit, sol.price_total, sol.price_subtotal, sol.create_date, to_char(sol.create_date,'YYMMDD') AS date_id,
        
